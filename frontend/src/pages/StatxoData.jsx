@@ -173,7 +173,7 @@ const StatxoData = () => {
 
   return (
     <Box textAlign={"center"} mt={16}>
-      {isLoaded && (
+      {isLoaded ? (
         <Stack m={10}>
           <Skeleton height="40px" />
           <Skeleton height="40px" />
@@ -181,74 +181,75 @@ const StatxoData = () => {
           <Skeleton height="40px" />
           <Skeleton height="40px" />
         </Stack>
+      ) : (
+        <TableContainer maxH={"70vh"} overflowY={"scroll"}>
+          <Table variant="simple" size={{ base: "sm", lg: "md" }}>
+            <Thead position="sticky" top="0" bg="gray.100" zIndex={"docked"}>
+              <Tr>
+                <Th isNumeric>Quantity</Th>
+                <Th isNumeric>Amount</Th>
+                <Th isNumeric>PostingYear</Th>
+                <Th isNumeric>PostingMonth</Th>
+                <Th w={"fit-content"}>ActionType</Th>
+                <Th w={"fit-content"}>ActionName</Th>
+                <Th>Status</Th>
+                <Th>UserName (Edited By)</Th>
+                <Th>EditedAt</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {taskData.length > 0 &&
+                taskData.map((task) => {
+                  return (
+                    <Tr key={task._id}>
+                      <Td isNumeric>{task.Quantity}</Td>
+                      <Td isNumeric> {task.Amount}</Td>
+                      <Td isNumeric>{task.PostingYear}</Td>
+                      <Td isNumeric>{task.PostingMonth}</Td>
+                      <Td>
+                        <Select
+                          w={"200px"}
+                          value={task.ActionType}
+                          onChange={(e) => {
+                            handleChangeActionType(task, e.target.value);
+                          }}
+                        >
+                          {ActionType.map((actionType) => {
+                            return (
+                              <option key={actionType} value={actionType}>
+                                {actionType}
+                              </option>
+                            );
+                          })}
+                        </Select>
+                      </Td>
+                      <Td>
+                        <Select
+                          w={"200px"}
+                          value={task.ActionName}
+                          onChange={(e) => {
+                            handleChangeActionName(task, e.target.value);
+                          }}
+                        >
+                          {ActionName.map((actionName) => {
+                            return (
+                              <option key={actionName} value={actionName}>
+                                {actionName}
+                              </option>
+                            );
+                          })}
+                        </Select>
+                      </Td>
+                      <Td>{task.Status}</Td>
+                      <Td>{task.UserName}</Td>
+                      <Td maxW={"200px"}>{task.EditedAt}</Td>
+                    </Tr>
+                  );
+                })}
+            </Tbody>
+          </Table>
+        </TableContainer>
       )}
-      <TableContainer maxH={"70vh"} overflowY={"scroll"}>
-        <Table variant="simple" size={{ base: "sm", lg: "md" }}>
-          <Thead position="sticky" top="0" bg="gray.100" zIndex={"docked"}>
-            <Tr>
-              <Th isNumeric>Quantity</Th>
-              <Th isNumeric>Amount</Th>
-              <Th isNumeric>PostingYear</Th>
-              <Th isNumeric>PostingMonth</Th>
-              <Th w={"fit-content"}>ActionType</Th>
-              <Th w={"fit-content"}>ActionName</Th>
-              <Th>Status</Th>
-              <Th>UserName (Edited By)</Th>
-              <Th>EditedAt</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {taskData.length > 0 &&
-              taskData.map((task) => {
-                return (
-                  <Tr key={task._id}>
-                    <Td isNumeric>{task.Quantity}</Td>
-                    <Td isNumeric> {task.Amount}</Td>
-                    <Td isNumeric>{task.PostingYear}</Td>
-                    <Td isNumeric>{task.PostingMonth}</Td>
-                    <Td>
-                      <Select
-                        w={"200px"}
-                        value={task.ActionType}
-                        onChange={(e) => {
-                          handleChangeActionType(task, e.target.value);
-                        }}
-                      >
-                        {ActionType.map((actionType) => {
-                          return (
-                            <option key={actionType} value={actionType}>
-                              {actionType}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </Td>
-                    <Td>
-                      <Select
-                        w={"200px"}
-                        value={task.ActionName}
-                        onChange={(e) => {
-                          handleChangeActionName(task, e.target.value);
-                        }}
-                      >
-                        {ActionName.map((actionName) => {
-                          return (
-                            <option key={actionName} value={actionName}>
-                              {actionName}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </Td>
-                    <Td>{task.Status}</Td>
-                    <Td>{task.UserName}</Td>
-                    <Td maxW={"200px"}>{task.EditedAt}</Td>
-                  </Tr>
-                );
-              })}
-          </Tbody>
-        </Table>
-      </TableContainer>
     </Box>
   );
 };
