@@ -1,4 +1,4 @@
-import { Box, Select, calc, useToast } from "@chakra-ui/react";
+import { Box, Select, Stack, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../utils/vars";
@@ -12,6 +12,9 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+
+import { Skeleton } from "@chakra-ui/react";
+
 import { AuthContext } from "../contexts/authContext";
 
 const ActionType = [
@@ -34,11 +37,13 @@ const StatxoData = () => {
   const { auth } = useContext(AuthContext);
   const [taskData, setTaskData] = useState([]);
   const fetchData = async () => {
+    setIsLoaded(true);
     axios
       .get(`${BASE_URL}/tasks/task`)
       .then((response) => response.data)
       .then((responseData) => {
         console.log(responseData);
+        setIsLoaded(false);
         setTaskData(responseData.data);
       })
       .catch((error) => {
@@ -164,6 +169,8 @@ const StatxoData = () => {
     }
   };
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <Box textAlign={"center"} mt={16}>
       <TableContainer maxH={"70vh"} overflowY={"scroll"}>
@@ -182,6 +189,15 @@ const StatxoData = () => {
             </Tr>
           </Thead>
           <Tbody>
+            {isLoaded && (
+              <Stack m={10}>
+                <Skeleton height="40px" />
+                <Skeleton height="40px" />
+                <Skeleton height="40px" />
+                <Skeleton height="40px" />
+                <Skeleton height="40px" />
+              </Stack>
+            )}
             {taskData.length > 0 &&
               taskData.map((task) => {
                 return (
