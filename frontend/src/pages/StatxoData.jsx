@@ -173,6 +173,15 @@ const StatxoData = () => {
 
   return (
     <Box textAlign={"center"} mt={16}>
+      {isLoaded && (
+        <Stack m={10}>
+          <Skeleton height="40px" />
+          <Skeleton height="40px" />
+          <Skeleton height="40px" />
+          <Skeleton height="40px" />
+          <Skeleton height="40px" />
+        </Stack>
+      )}
       <TableContainer maxH={"70vh"} overflowY={"scroll"}>
         <Table variant="simple" size={{ base: "sm", lg: "md" }}>
           <Thead position="sticky" top="0" bg="gray.100" zIndex={"docked"}>
@@ -189,15 +198,6 @@ const StatxoData = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {isLoaded && (
-              <Stack m={10}>
-                <Skeleton height="40px" />
-                <Skeleton height="40px" />
-                <Skeleton height="40px" />
-                <Skeleton height="40px" />
-                <Skeleton height="40px" />
-              </Stack>
-            )}
             {taskData.length > 0 &&
               taskData.map((task) => {
                 return (
