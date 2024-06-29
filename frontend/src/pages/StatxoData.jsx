@@ -1,4 +1,4 @@
-import { Box, Select, Stack, useToast } from "@chakra-ui/react";
+import { Box, Select, Stack, Text, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../utils/vars";
@@ -34,8 +34,13 @@ const ActionName = [
 
 const StatxoData = () => {
   const toast = useToast();
+
   const { auth } = useContext(AuthContext);
+
   const [taskData, setTaskData] = useState([]);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const fetchData = async () => {
     setIsLoaded(true);
     axios
@@ -169,8 +174,6 @@ const StatxoData = () => {
     }
   };
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
   return (
     <Box textAlign={"center"} mt={16}>
       {isLoaded ? (
@@ -181,6 +184,8 @@ const StatxoData = () => {
           <Skeleton height="40px" />
           <Skeleton height="40px" />
         </Stack>
+      ) : taskData.length == 0 ? (
+        <Text>No Data</Text>
       ) : (
         <TableContainer maxH={"70vh"} overflowY={"scroll"}>
           <Table variant="simple" size={{ base: "sm", lg: "md" }}>
