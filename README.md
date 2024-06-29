@@ -109,6 +109,11 @@ npm run server
 ```
 
 ## Snapshot of Website
+![Screenshot 2024-06-29 095347](https://github.com/SatyajeetKumarRao/Statxo/assets/67307315/b82d35bb-fa02-4765-a89c-aa6c4bcd1c8b)
+
+![Screenshot 2024-06-29 095416](https://github.com/SatyajeetKumarRao/Statxo/assets/67307315/95ff0617-64b7-4620-8e9b-030bdbbfe72e)
+
+![Screenshot 2024-06-29 095455](https://github.com/SatyajeetKumarRao/Statxo/assets/67307315/10416189-9aac-4bc9-9e1b-b959945f6a72)
 
 ## Technology Stack
 
